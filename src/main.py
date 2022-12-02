@@ -2,6 +2,8 @@ URL = "https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/nev
 from HttpClient import HttpClient
 from EmailSender import EmailSender
 import time
+from datetime import datetime
+
 
 class NeverEverTracker:
     def __init__(self, web_url, check_time):
@@ -17,7 +19,9 @@ class NeverEverTracker:
             new_update = self.web_page.find('div', id="c22_Basic_Content_2")
 
             if_match = new_update == self.target_reference
-            print(f'After {check_time} second, if the content stay unchanged: ', if_match)
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            print(f'After {check_time} second, if the content stay unchanged: ', if_match, f' @ {current_time}')
             if not if_match:
                 self.email.send_email("""Some updates appears on the page: \nhttps://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx\n\nPlease check it soon""")
 
