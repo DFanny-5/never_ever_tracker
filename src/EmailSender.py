@@ -5,25 +5,35 @@ import config
 
 class EmailSender:
     def __init__(self):
+        pass
+    @staticmethod
+    def send_email(message, sender_name='never_ever监控器',
+                   receiver_name='想滑雪的小朋友', subject= 'never_ever可能开始啦！'):
+        """
+        :param message: The content of the message
+        :param sender_name: Name shew on the sender field
+        :param receiver_name: Name shew on the receiver field
+        :param subject: Subject of the email
+        :return:
+        """
         # creates SMTP session
-        self.email_acount = smtplib.SMTP('smtp.gmail.com', 587)
+        email_acount = smtplib.SMTP('smtp.gmail.com', 587)
+
         # start TLS for security
-        self.email_acount.starttls()
+        email_acount.starttls()
+
         # Authentication
-        self.email_acount.login(config.sender, config.authorization_password)
+        email_acount.login(config.sender, config.authorization_password)
 
-
-
-    def send_email(self, message):
-        message = MIMEText(message)  # 邮件内容
-        message['From'] = Header('never_ever监控器')  # 邮件发送者名字
-        message['To'] = Header('想滑雪的小朋友')  # 邮件接收者名字
-        message['Subject'] = Header('never_ever可能开始啦！')  # 邮件主题
+        message = MIMEText(message)
+        message['From'] = Header(sender_name)
+        message['To'] = Header(receiver_name)
+        message['Subject'] = Header(subject)
 
         # sending the mail
-        self.email_acount.sendmail(config.sender, config.receivers, message.as_string())
+        email_acount.sendmail(config.sender, config.receivers, message.as_string())
         # terminating the session
-        self.email_acount.quit()
+        email_acount.quit()
 
 if __name__=="__main__":
     sender = EmailSender()

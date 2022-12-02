@@ -15,15 +15,15 @@ class NeverEverTracker:
     def start_monitroing(self, check_time):
         while True:
             new_update = self.web_page.find('div', id="c22_Basic_Content_2")
-            time.sleep(check_time)
+
             if_match = new_update == self.target_reference
             print(f'After {check_time} second, if the content stay unchanged: ', if_match)
             if not if_match:
-                self.email.send_email("""Some updates appears on the page: 
-                https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx 
-                \n\n 
-                Please check it soon""")
-                self.target_reference = new_update # update the latest context to avoid duplicate sending
+                self.email.send_email("""Some updates appears on the page: \nhttps://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx\n\nPlease check it soon""")
+
+                # update the latest context to avoid duplicate sending
+                self.target_reference = new_update
+            time.sleep(check_time)
 
 
 if __name__=="__main__":
