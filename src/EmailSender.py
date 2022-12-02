@@ -26,4 +26,6 @@ class EmailSender:
         self.email_acount.quit()
 
 if __name__=="__main__":
-    EmailSender()
+    sender = EmailSender()
+    sender.send_email("快点快点快醒醒！never ever可能开始啦～\n "
+                      "==> https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx")

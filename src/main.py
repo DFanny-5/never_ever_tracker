@@ -1,4 +1,4 @@
-url = "https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx"
+URL = "https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx"
 from HttpClient import HttpClient
 from EmailSender import EmailSender
 import time
@@ -19,9 +19,12 @@ class NeverEverTracker:
             if_match = new_update == self.target_reference
             print(f'After {check_time} second, if the content stay unchanged: ', if_match)
             if not if_match:
-                self.email.send_email("""Some updates appears on the page: https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx \n\n Please check it soon""")
+                self.email.send_email("""Some updates appears on the page: 
+                https://www.whistlerblackcomb.com/plan-your-trip/ski-and-ride-lessons/never-ever-days.aspx 
+                \n\n 
+                Please check it soon""")
                 self.target_reference = new_update # update the latest context to avoid duplicate sending
 
 
 if __name__=="__main__":
-    web_soup = NeverEverTracker(url, 3)
+    web_soup = NeverEverTracker(URL, 30)
