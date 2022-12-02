@@ -31,4 +31,4 @@ class NeverEverTracker:
 
 
 if __name__=="__main__":
-    web_soup = NeverEverTracker(URL, 30)
+    web_soup = NeverEverTracker(URL, 300)

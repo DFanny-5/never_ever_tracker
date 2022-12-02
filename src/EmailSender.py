@@ -16,24 +16,22 @@ class EmailSender:
         :param subject: Subject of the email
         :return:
         """
-        # creates SMTP session
-        email_acount = smtplib.SMTP('smtp.gmail.com', 587)
-
-        # start TLS for security
-        email_acount.starttls()
-
-        # Authentication
-        email_acount.login(config.sender, config.authorization_password)
-
         message = MIMEText(message)
         message['From'] = Header(sender_name)
         message['To'] = Header(receiver_name)
         message['Subject'] = Header(subject)
 
-        # sending the mail
-        email_acount.sendmail(config.sender, config.receivers, message.as_string())
-        # terminating the session
-        email_acount.quit()
+        for receiver in config.receivers:
+            # creates SMTP session
+            email_acount = smtplib.SMTP('smtp.gmail.com', 587)
+            # start TLS for security
+            email_acount.starttls()
+            # Authentication
+            email_acount.login(config.sender, config.authorization_password)
+            # sending the mail
+            email_acount.sendmail(config.sender, config.receivers, message.as_string())
+            # terminating the session
+            email_acount.quit()
 
 if __name__=="__main__":
     sender = EmailSender()
